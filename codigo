@@ -1,0 +1,97 @@
+
+# Este es un juego de lucha
+import random
+# aqui voy a poner vida y golpeo de personajes
+jaGolpeo =[1,3,9]
+jaVida = 150
+
+tuGolpeo =[2,8,16]
+tuVida = 78
+
+
+puGolpeo = [1,3,5]
+puVida = 100 
+
+ko=False
+rendicion=False
+
+turno=0
+
+
+# Funciones de golpeo y resistencia
+def golpear(golpeo):
+    daño = random.choice(golpeo)
+    print("Golpeaste con un daño de", daño)
+    return daño
+
+def resistencia():
+    global ja_vida, tu_vida, pu_vida
+    daño_ja = random.choice(jaGolpeo)
+    daño_tu = random.choice(tuGolpeo)
+    daño_pu = random.choice(puGolpeo)
+    ja_vida -= daño_tu + daño_pu
+    tu_vida -= daño_ja + daño_pu
+    pu_vida -= daño_ja + daño_tu
+    print("Resististe con daños de", daño_ja, daño_tu, daño_pu)
+    return daño_ja, daño_tu, daño_pu
+
+
+
+
+
+# aqui selecicon de pesonajes
+
+
+Jugador_1 = input("seleccione un luchador 1 = jamal  2 = turlys 3 = putitaboxeadora")
+if Jugador_1 == 1:
+    print("Jugador 1: jamal")
+    jugador1 = [jaGolpeo, jaVida]
+elif Jugador_1 == 2:
+    print("Jugador 1: turlys")
+    jugador1 = [tuGolpeo, tuVida]
+elif Jugador_1 == 3:
+    print("Jugador 1: putitaboxeadora")
+    jugador1 = [puGolpeo, puVida]
+else:
+    print("Error")
+
+Jugador_2 = input("seleccione un luchador 1 = jamal  2 = turlys 3 = putitaboxeadora")
+if Jugador_2 == 1:
+    print("Jugador 2: jamal")
+    jugador2 = [jaGolpeo, jaVida]
+elif Jugador_2 == 2:
+    print("Jugador 2: turlys")
+    jugador2 = [tuGolpeo, tuVida]
+elif Jugador_2 == 3:
+    print("Jugador 2: putitaboxeadora")
+    jugador2 = [puGolpeo, puVida]
+else:
+    print("Error")
+
+
+
+# aqui dinamica de juego    # 
+
+while not ko and not rendicion:
+    print("Es tiempo de lucha")
+    turno += 1
+    if turno % 2 == 0:
+        print("Golpea jugador 1")
+        golpe_jugador1 = random.choice(jugador1[0])
+        resistencia_jugador2 = random.choice(jugador2[1])
+        jugador2[1] -= golpe_jugador1
+        print("El jugador 1 golpeó con un daño de", golpe_jugador1)
+        print("El jugador 2 resistió con un daño de", resistencia_jugador2)
+        if jugador2[1] <= 0:
+            ko = True
+            print("El jugador 1 ha ganado")
+    else:
+        print("Golpea jugador 2")
+        golpe_jugador2 = random.choice(jugador2[0])
+        resistencia_jugador1 = random.choice(jugador1[1])
+        jugador1[1] -= golpe_jugador2
+        print("El jugador 2 golpeó con un daño de", golpe_jugador2)
+        print("El jugador 1 resistió con un daño de", resistencia_jugador1)
+        if jugador1[1] <= 0:
+            ko = True
+            print("El jugador 2 ha ganado")
